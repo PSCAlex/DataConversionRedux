@@ -1,21 +1,41 @@
 import * as React from 'react';
 
-export class ImportCard extends React.Component<any, void> {
-    public render() {
-        return <div>
+const ImportCard =({file}) => {
+    return(
+        <div>
             <div className="well well-sm">
                 <div className="row">
                     <div className="col-md-8">
-                        <span>Picklists</span>
+                        <h4>{file.name}</h4>
                     </div>
                     <div className="col-md-2">
-                        <span>...</span>
+                        {(()=>{
+                            if(file.success){
+                                return <i className="fa fa-check-circle-o fa-3x" aria-hidden="true"></i>
+                            }
+                            else if(file.error){
+                                return <i className="fa fa-times-circle-o fa-3x" aria-hidden="true"></i>
+                            }
+                            else if(file.isStarted){
+                                return <div className="loader">
+                                            <div className="circle">&nbsp;</div>
+                                            <div className="circle">&nbsp;</div>
+                                            <div className="circle">&nbsp;</div>
+                                            <div className="circle">&nbsp;</div>
+                                        </div>
+                            }
+                            else{
+                                return '';
+                            }
+                        })()}
                     </div>
-                    <div className="col-md-2">
-                        <span className='glyphicon glyphicon-chevron-down'></span>
+                    <div className="col-md-1">
+                        <i className="fa fa-caret-square-o-down fa-3x" aria-hidden="true"></i>
                     </div>
                 </div>
             </div>
-        </div>;
-    }
-}
+        </div>
+    );
+};
+
+export default ImportCard;

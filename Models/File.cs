@@ -13,5 +13,6 @@ namespace WebApplicationBasic.Models {
         public bool IsError {get;set;}
         public string ErrorInfo {get;set;}
         public bool IsComplete {get;set;}
+        public bool IsStarted { get; set; }
     } 
 }

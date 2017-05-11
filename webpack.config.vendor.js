@@ -30,7 +30,8 @@ module.exports = (env) => {
                 'react-router-redux',
                 'jquery',
                 'react-select',
-                'react-select/dist/react-select.css'
+                'react-select/dist/react-select.css',
+                'font-awesome/css/font-awesome.css'
             ],
         },
         output: {

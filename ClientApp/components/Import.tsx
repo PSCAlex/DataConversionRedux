@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ImportCard} from './import/ImportCard';
+import ImportCard from './import/ImportCard';
 import {ImportProgress} from './import/ImportProgress';
 import {ApplicationState} from '../store';
 import * as ConversionState from '../store/ConversionStore';
@@ -9,20 +9,27 @@ type ConversionProps = ConversionState.ConversionState & typeof ConversionState.
 
 class Import extends React.Component<ConversionProps, any> {
 
-    componentWillMount(){
-        //this.props.requestOrganisationNumbers();
+    constructor(props, context){
+        super(props, context);
+        this.onClickStart = this.onClickStart.bind(this);
+    }
+
+    onClickStart(){
+        this.props.runFiles();
     }
 
     public render() {
         return <div className="container">
-            <h1>Import</h1>
-            <br/>
             <div className="row">
+                <h3>Progress...</h3>
+                {/*<button className="btn btn success" onClick={this.onClickStart}>Start</button>*/}
                 <ImportProgress />
             </div>
             <div className="row">
                 <div className="col-md-10 col-md-offset-1">
-                    <ImportCard />
+                    {this.props.files.map((f,i) => (
+                        <ImportCard key={i} file={f}/>
+                    ))}
                 </div>
             </div>
         </div>;

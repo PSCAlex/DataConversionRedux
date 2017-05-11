@@ -37,7 +37,8 @@ class Select extends React.Component<ConversionProps, any> {
 
     onClickStart(event){
         event.preventDefault();
-        alert(`OrganisationNumber: ${this.props.organisationNumber}, PayrollNumber: ${this.props.organisationPayrollNumber}`);
+        //alert(`OrganisationNumber: ${this.props.organisationNumber}, PayrollNumber: ${this.props.organisationPayrollNumber}`);
+        this.props.requestFiles();
     }
 
     public render() {

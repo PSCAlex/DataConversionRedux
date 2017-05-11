@@ -29,7 +29,7 @@ export class NavMenu extends React.Component<any, any> {
                         </li>
                         <li>
                             <Link to={ '/import' } activeClassName='active'>
-                                <span className='glyphicon glyphicon-tasks'></span> Import Status
+                                <span className='glyphicon glyphicon-tasks'></span> Conversion Status
                             </Link>
                         </li>
                     </ul>

@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "dependencies": {
     "@types/history": "^2.0.0",
+    "@types/jquery": "^2.0.43",
     "@types/react": "^0.14.29",
     "@types/react-dom": "^0.14.14",
     "@types/react-redux": "^4.4.29",
@@ -25,6 +26,7 @@
     "event-source-polyfill": "^0.0.7",
     "extract-text-webpack-plugin": "^2.0.0-rc",
     "file-loader": "^0.8.5",
+    "font-awesome": "^4.7.0",
     "jquery": "^2.2.1",
     "json-loader": "^0.5.4",
     "node-noop": "^1.0.0",
