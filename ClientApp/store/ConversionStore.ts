@@ -68,9 +68,13 @@ interface UpdateFileStatus {
     index: number
 }
 
+interface UpdateFileCount {
+    type: 'UPDATE_FILE_COUNT'
+}
+
 type KnownAction = RequestOrganisationNumbersAction | ReceiveOrganisationNumbersAction | SetOrganisationNumber 
     | RequestOrganisationPayrollNumbers | ReceiveOrganisationPayrollNumbers | SetOrganisationPayrollNumber | RequestFiles | ReceiveFiles
-    | UpdateFileStatus;
+    | UpdateFileStatus | UpdateFileCount;
 
 const processFile = (files: File[], i, dispatch) => {
     let file = files[i];
@@ -79,19 +83,18 @@ const processFile = (files: File[], i, dispatch) => {
 
     let nextI = i + 1;
     $.post(files[i].url).then(function(data){
-        console.log(data);
 
         file.isComplete = true;
         file.success = true;
         file.successInfo = data.successInfo;
 
         dispatch({type: 'UPDATE_FILE_STATUS', file, index: i});
+        dispatch({type: 'UPDATE_FILE_COUNT'});
 
         if(nextI < files.length){
             processFile(files, nextI, dispatch);
         }
     }, function(data){
-        console.log(data);
 
         let file = files[i];
 
@@ -100,6 +103,7 @@ const processFile = (files: File[], i, dispatch) => {
         file.errorInfo = data.responseJSON.errorInfo;
 
         dispatch({type: 'UPDATE_FILE_STATUS', file, index: i});
+        dispatch({type: 'UPDATE_FILE_COUNT'});
 
         if(nextI < files.length){
             processFile(files, nextI, dispatch);
@@ -248,12 +252,13 @@ export const reducer: Reducer<ConversionState> = (state:ConversionState, action:
                 organisationPayrollNumber: state.organisationPayrollNumber, 
                 isLoading: false, 
                 files: action.files,
-                numberOfFiles: state.numberOfFiles,
+                numberOfFiles: action.files.length,
                 filesCompleted: state.filesCompleted,
             }
         case 'UPDATE_FILE_STATUS':
             let tempFiles = state.files.map(a => Object.assign({}, a));
             tempFiles[action.index] = action.file;
+
             return {
                 organisationPayrollNumbers: state.organisationPayrollNumbers, 
                 organisationNumbers: state.organisationNumbers, 
@@ -263,6 +268,19 @@ export const reducer: Reducer<ConversionState> = (state:ConversionState, action:
                 files: tempFiles,
                 numberOfFiles: state.numberOfFiles,
                 filesCompleted: state.filesCompleted,
+            }
+        case 'UPDATE_FILE_COUNT':
+            let tempFileCount = JSON.parse(JSON.stringify(state.filesCompleted));
+            tempFileCount += 1;
+            return {
+                organisationPayrollNumbers: state.organisationPayrollNumbers, 
+                organisationNumbers: state.organisationNumbers, 
+                organisationNumber: state.organisationNumber,
+                organisationPayrollNumber: state.organisationPayrollNumber, 
+                isLoading: false, 
+                files: state.files,
+                numberOfFiles: state.numberOfFiles,
+                filesCompleted: tempFileCount,
             }
         default:
             const exhaustiveCheck: never = action;

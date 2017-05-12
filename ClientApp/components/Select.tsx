@@ -16,7 +16,9 @@ class Select extends React.Component<ConversionProps, any> {
     }
 
     componentWillMount(){
-        this.props.requestOrganisationNumbers();
+        if(!this.props.organisationNumbers){
+            this.props.requestOrganisationNumbers();
+        }
     }
 
     onOrganisationNumberChange(val){
@@ -65,7 +67,7 @@ class Select extends React.Component<ConversionProps, any> {
                 </div>
 
                 <div className="formGroup">
-                    <input className="btn btn-success"type="submit" value="Start" onClick={this.onClickStart}/>
+                    <input className="btn btn-success"type="submit" value="Start Conversion" onClick={this.onClickStart}/>
                 </div>
             </form>
         </div>);
