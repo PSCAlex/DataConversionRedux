@@ -18,10 +18,6 @@ class Import extends React.Component<ConversionProps, any> {
         this.props.runFiles();
     }
 
-    toggleVisible(){
-        this.setState({visible: !this.state.visible})
-    }
-
     public render() {
         return <div className="container">
             <div className="row">
@@ -32,7 +28,9 @@ class Import extends React.Component<ConversionProps, any> {
             <div className="row">
                 <div className="col-md-10 col-md-offset-1">
                     {this.props.files.map((f,i) => (
-                        <ImportCard key={i} file={f}/>
+                        <ImportCard 
+                            key={i} 
+                            file={f}/>
                     ))}
                 </div>
             </div>

@@ -73,6 +73,10 @@
     color: red;
 }
 
+.hide-message{
+  display: none;
+}
+
 .loader {
   position: relative;
   display: block;
